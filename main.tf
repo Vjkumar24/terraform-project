@@ -1,23 +1,23 @@
 #this file consists of code for instances and sg
 provider "aws" {
-region = "eu-west-3"
+region = "us-east-1"
 access_key = "AKIA6GIPBJWA55M2OZHK"
 secret_key = "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"
 }
 
 resource "aws_instance" "one" {
-  ami             = "ami-0b8b5288592eca360"
+  ami             = "ami-0453898e98046c639"
   instance_type   = "t2.micro"
-  key_name        = "terrapem"
+  key_name        = "virgina"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-3a"
+  availability_zone = "us-east-1a"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my app created by terraform infrastructurte by raham sir server-1" > /var/www/html/index.html
+echo "hai all this is my app created by terraform infrastructurte by vijay server-1" > /var/www/html/index.html
 EOF
   tags = {
     Name = "web-server-1"
@@ -25,18 +25,18 @@ EOF
 }
 
 resource "aws_instance" "two" {
-  ami             = "ami-0b8b5288592eca360"
+  ami             = "ami-0453898e98046c639"
   instance_type   = "t2.micro"
-  key_name        = "terrapem"
+  key_name        = "virgina"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-3b"
+  availability_zone = "us-east-1b"
   user_data       = <<EOF
 #!/bin/bash
 sudo -i
 yum install httpd -y
 systemctl start httpd
 chkconfig httpd on
-echo "hai all this is my website created by terraform infrastructurte by raham sir server-2" > /var/www/html/index.html
+echo "hai all this is my website created by terraform infrastructurte by vijay server-2" > /var/www/html/index.html
 EOF
   tags = {
     Name = "web-server-2"
@@ -44,29 +44,29 @@ EOF
 }
 
 resource "aws_instance" "three" {
-  ami             = "ami-0b8b5288592eca360"
+  ami             = "ami-0453898e98046c639"
   instance_type   = "t2.micro"
-  key_name        = "terrapem"
+  key_name        = "virgina"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-3a"
+  availability_zone = "us-east-1a"
   tags = {
     Name = "app-server-1"
   }
 }
 
 resource "aws_instance" "four" {
-  ami             = "ami-0b8b5288592eca360"
+  ami             = "ami-0453898e98046c639"
   instance_type   = "t2.micro"
-  key_name        = "terrapem"
+  key_name        = "virgina"
   vpc_security_group_ids = [aws_security_group.five.id]
-  availability_zone = "eu-west-3b"
+  availability_zone = "us-east-1b"
   tags = {
     Name = "app-server-2"
   }
 }
 
 resource "aws_security_group" "five" {
-  name = "elb-sg"
+  name = "3-tier-sg"
   ingress {
     from_port   = 22
     to_port     = 22
@@ -90,7 +90,7 @@ resource "aws_security_group" "five" {
 }
 
 resource "aws_s3_bucket" "six" {
-  bucket = "rahamshaikterra7gsywgys7889900prodenvgshj"
+  bucket = "vjkumar9977788"
 }
 
 resource "aws_iam_user" "seven" {
@@ -105,9 +105,9 @@ default = ["user1", "user2", "user3", "user4"]
 }
 
 resource "aws_ebs_volume" "eight" {
- availability_zone = "eu-west-3a"
-  size = 40
+ availability_zone = "us-east-1a"
+  size = 20
   tags = {
-    Name = "ebs-001"
+    Name = "3-tier-ebs"
   }
 }
